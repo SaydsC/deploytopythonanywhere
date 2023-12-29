@@ -3,13 +3,13 @@
         <title>View Employees</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-        <script src="./ajaxcalls.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
         <h1>Employees</h1>
         <div><button id="button-showCreate" onclick="showCreate()">Create a new Employee</button><br/><br/></div>
         <div>
-            <table border="1" id="employeeTable">
+            <table class="table" id="employeeTable">
                 <tr>
                         <th>StaffID</th>
                         <th>Name</th>
@@ -19,288 +19,234 @@
                         <th>Update</th>
                         <th>Delete</th>
                 </tr>
-                <tr id="1">
-                    <td>1</td>
-                    <td>John Smith</td>
-                    <td>Senior Management</td>
-                    <td>HR Business Partner</td>
-                    <td>101</td>
-                    <td><button onclick="showUpdate(this)">update</button></td>
-                    <td><button onclick="doDelete(this)">delete</button></td>
-                   
-                </tr>
-                <tr id="2">
-                    <td>2</td>
-                    <td>Mary Kelly</td>
-                    <td>Senior Management</td>
-                    <td>Head of Design</td>
-                    <td>102</td>
-                    <td><button onclick="showUpdate(this)">update</button></td>
-                    <td><button onclick="doDelete(this)">delete</button></td>
-               
-                </tr>
-                <tr id="3">
-                    <td>3</td>
-                    <td>Ronan Gallagher</td>
-                    <td>Graduate</td>
-                    <td>Junior Engineer</td>
-                    <td>103</td>
-                    <td><button onclick="showUpdate(this)">update</button></td>
-                    <td><button onclick="doDelete(this)">delete</button></td>
-           
-                </tr>
-                    <tr id="4">
-                    <td>4</td>
-                    <td>Joan Perry</td>
-                    <td>Middle Management</td>
-                    <td>Payroll Specialist</td>
-                    <td>101</td>
-                    <td><button onclick="showUpdate(this)">update</button></td>
-                    <td><button onclick="doDelete(this)">delete</button></td>
-       
-                </tr>
-                <tr id="5">
-                    <td>5</td>
-                    <td>Clare Daly</td>
-                    <td>Middle Management</td>
-                    <td>Engineer</td>
-                    <td>103</td>
-                    <td><button onclick="showUpdate(this)">update</button></td>
-                    <td><button onclick="doDelete(this)">delete</button></td>
-       
-                </tr>
-                <tr id="6">
-                    <td>6</td>
-                    <td>David Felle</td>
-                    <td>Middle Management</td>
-                    <td>Design Manager</td>
-                    <td>102</td>
-                    <td><button onclick="showUpdate(this)">update</button></td>
-                    <td><button onclick="doDelete(this)">delete</button></td>
-       
-                </tr>
-
+   
         </table>
         <br/>
         </div>
         <div id="createUpdateForm" style="display:none">
-            <!-- spans are like divs but do not go onto a new line -->
+           
             <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> Employee</h2>
-            StaffID <input type="text" name="StaffID"><br/>
+            <input type="hidden" name="StaffID"/>
             Name <input type="text" name="Name"><br/>
             Position <input type="text" name="Position"><br/>
             Role <input type="text" name="Role"><br/>
-           DepartmentID <input type="number" name="DepartmentID"><br/>
+            DepartmentID <input type="number" name="DepartmentID"><br/>
            
             <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
  			<span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
-             <!-- "display:none" will make it hidden-->
-
-
+            
         </div>
         
     </body>
     <script>
-        //console.log("hello world")
         function showCreate(){
-            document.getElementById("createUpdateForm").style.display = "block"
-            
-            document.getElementById("button-doCreate").style.display = "block"
-            document.getElementById("button-doUpdate").style.display = "none"
-            document.getElementById("createLabel").style.display = "inline"
-            document.getElementById("updateLabel").style.display = "none"
-
-            document.getElementById("button-showCreate").style.display = "none"
-            document.getElementById("employeeTable").style.display = "none"
-            
+            document.getElementById('showCreateButton').style.display="none"
+            document.getElementById('employeeTable').style.display="none"
+            document.getElementById('createUpdateForm').style.display="block"
+            document.getElementById('createLabel').style.display="inline"
+            document.getElementById('updateLabel').style.display="none"
+            document.getElementById('doCreateButton').style.display="block"
+            document.getElementById('doUpdateButton').style.display="none"
         }
+
+        function showViewAll(){
+            document.getElementById('showCreateButton').style.display="block"
+            document.getElementById('employeeTable').style.display="block"
+            document.getElementById('createUpdateForm').style.display="none"
+        }
+
         function showUpdate(buttonElement){
-            document.getElementById("createUpdateForm").style.display = "block"
-           
-            document.getElementById("button-doCreate").style.display = "none"
-            document.getElementById("button-doUpdate").style.display = "block"
-            document.getElementById("createLabel").style.display = "none"
-            document.getElementById("updateLabel").style.display = "inline"
-
-            document.getElementById("button-showCreate").style.display = "none"
-            document.getElementById("employeeTable").style.display = "none"
-
-            rowElement= buttonElement.parentNode.parentNode
-            employee = getEmployeeFromRow(rowElement)
-            //console.log("updating")
-            //console.log(employee)
+            document.getElementById('showCreateButton').style.display="none"
+            document.getElementById('employeeTable').style.display="none"
+            document.getElementById('createUpdateForm').style.display="block"
+            document.getElementById('createLabel').style.display="none"
+            document.getElementById('updateLabel').style.display="inline"
+            document.getElementById('doCreateButton').style.display="none"
+            document.getElementById('doUpdateButton').style.display="block"
+        
+            var rowElement = buttonElement.parentNode.parentNode
+        // these is a way of finding the closest <tr> which would safer, closest()
+        
+            var employee = getEmployeeFromRow(rowElement)
             populateFormWithEmployee(employee)
-            
         }
-        function showViewall(){
-            document.getElementById("createUpdateForm").style.display = "none"
-           
-            document.getElementById("button-showCreate").style.display = "block"
-            document.getElementById("employeeTable").style.display = "block"
-            
-        }
-        function clearForm(){
-            var form = document.getElementById('createUpdateForm')
-
-            form.querySelector('input[name="StaffID"]').disabled = false
-            form.querySelector('input[name="StaffID"]').value  =''
-            form.querySelector('input[name="Name"]').value=''
-            form.querySelector('input[name="Position"]').value=''
-            form.querySelector('input[name="Role"]').value=''
-            form.querySelector('input[name="DepartmentID"]').value=''
-        }
-        
-        function getEmployeeFromForm(){
-            var form = document.getElementById('createUpdateForm')
-
-       	    var employee = {}
-        	employee.StaffID = form.querySelector('input[name="StaffID"]').value
-        	employee.Name = form.querySelector('input[name="Name"]').value
-        	employee.Position = form.querySelector('input[name="Position"]').value
-            employee.Role = form.querySelector('input[name="Role"]').value
-        	employee.DepartmentID = form.querySelector('input[name="DepartmentID"]').value
-        	//console.log(JSON.stringify(book))
-            return employee
-        }
-        function populateFormWithEmployee(employee){
-       		var form = document.getElementById('createUpdateForm')
-        	form.querySelector('input[name="StaffID"]').disabled = true
-       		form.querySelector('input[name="StaffID"]').value  = employee.StaffID
-       		form.querySelector('input[name="Name"]').value= employee.Name
-            form.querySelector('input[name="Position"]').value= employee.Position
-        	form.querySelector('input[name="Role"]').value= employee.Role
-        	form.querySelector('input[name="DepartmentID"]').value= employee.DepartmentID
-    }
-
-
-        function addEmployeeToTable(employee){
-            var tableElement = document.getElementById('employeeTable')
-            var rowElement = tableElement.insertRow(-1)
-            
-            rowElement.setAttribute('StaffID',employee.StaffID)
-            
-            var cell1 = rowElement.insertCell(0);
-            cell1.innerHTML = employee.StaffID
-            var cell2 = rowElement.insertCell(1);
-            cell2.innerHTML = employee.Name
-            var cell3 = rowElement.insertCell(2);
-            cell3.innerHTML = employee.Position
-            var cell4 = rowElement.insertCell(3);
-            cell4.innerHTML = employee.Role
-            var cell5 = rowElement.insertCell(4);
-            cell5.innerHTML = employee.DepartmentID
-            var cell6 = rowElement.insertCell(5);
-            cell6.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
-            var cell7 = rowElement.insertCell(6);
-            cell7.innerHTML = '<button onclick=doDelete(this)>delete</button>'
-
-        }
-        function getEmployeeFromRow(rowElement){
-            var employee ={}
-            employee.StaffID  = rowElement.cells[0].firstChild.textContent
-            employee.Name = rowElement.cells[1].firstChild.textContent
-            employee.Position = rowElement.cells[2].firstChild.textContent
-            employee.Role = rowElement.cells[3].firstChild.textContent
-            employee.DepartmentID = rowElement.cells[4].firstChild.textContent
-
-            return employee
-        }
-        function setEmployeeInRow(rowElement, employee){
-            rowElement.cells[0].firstChild.textContent= employee.StaffID 
-            rowElement.cells[1].firstChild.textContent= employee.Name 
-            rowElement.cells[2].firstChild.textContent= employee.Position
-            rowElement.cells[3].firstChild.textContent= employee.Role
-            rowElement.cells[4].firstChild.textContent= employee.DepartmentID
-    }
-
+                       
         function doCreate(){
-            console.log("creating an employee")
-            book = getEmployeeFromForm()
-            //console.log(book)
-            // I need to wait until I get the id from the server before adding this to the table
-            // so  I put that code in the callback function
-            createEmployee(convertDisplayEmployeeToServerEmployee(employee), processCreateResponse)
-           
-        }
-        function doUpdate(){
-            employee= getEmployeeFromForm()
-            //console.log(employee)
-            var rowElement = document.getElementById(employee.StaffID)
-            setEmployeeInRow(rowElement, employee)
-            // now I am updating on the server
-            // yes there is a change that it will be updated on the table and not the server
-            updateEmployee(convertDisplayEmployeeToServerEmployee(employee), doNothing)
-           
-            showViewall()
-            clearForm()
-        }
-        function doDelete(buttonElement){
-            console.log("in delete")
-            var tableElement = document.getElementById('employeeTable')
-            var rowElement = buttonElement.parentNode.parentNode;
-            // I need the employee StaffID
-            id = rowElement.getAttribute("StaffID")
-            console.log("deleting "+StaffID)
-            deleteEmployee(StaffID, doNothing)
-           
+        var form = document.getElementById('createUpdateForm')
 
-            index = rowElement.rowIndex
-            tableElement.deleteRow(index);
-
-
-        }
-
-        // populate the table
-        function processGetAllResponse(result){
-            console.log("in process")
-            //console.log(result)
-            for (employee of result){
-                //console.log(employee)
-                // issue the format of the employee object is different from lab06.02
-                // there are two solutions change the employee object in lan06.02 to have capitals 
-                // or convert
-                displayEmployee = {}
-                displayEmployee.StaffID = employee.StaffID
-                displayEmployee.Name = employee.Name
-                displayEmployee.Position = employee.Position
-                displayEmployee.Role = employee.Role
-                displayEmployee.DepartmentID = employee.DepartmentID
-                // you can now pass it to addEmployeeToTable
-                //console.log(displayEmployee)
-                addEmployeeToTable(displayEmployee)
-            }
-        }
-        function convertDisplayEmployeeToServerEmployee(displayEmployee){
-            serverEmployee = {}
-            serverEmployee.StaffID = displayEmployee.StaffID
-            serverEmployee.Name = displayEmployee.Name
-            serverEmployee.Position = displayEmployee.Position
-            serverEmployee.Role = displayEmployee.Role
-            serverEmployee.DepartmentID = parseInt(displayEmployee.DepartmentID) // convert the string to an int
-            return serverEmployee
-        }
-        function convertServerEmployeeToDisplayEmployee(employee){
-            displayEmployee = {}
-            displayEmployee.StaffID = employee.StaffID
-            displayEmployee.Name = employee.Name
-            displayEmployee.Position = employee.Position
-            displayEmployee.Role = employee.Role
-            displayEmployee.DepartmentID = employee.DepartmentID
-            return displayEmployee
-        }
-        function processCreateResponse(result){
-            displayEmployee = convertServerEmployeeToDisplayEmployee(result)
-            addEmployeeToTable(displayEmployee)
-            showViewall()
-            clearForm()
-        }
-        // I should set this as the default function for the callback
-        function doNothing(result){
-            console.log(result)
-            return "done"
-        }
-         getAll(processGetAllResponse)
-
+        var employee = {}
+       
+        employee.Name = form.querySelector('input[name="Name"]').value
+        employee.Position= form.querySelector('input[name="Position"]').value
+        employee.Role= form.querySelector('input[name="Role"]').value
+        employee.DepartmentID = form.querySelector('input[name="DepartmentID"]').value
+        console.log(JSON.stringify(employee))
+        createEmployeeAjax(employee)
         
+        
+    }
+    function doUpdate(){
+        var employee = getEmployeeFromForm();
+        var rowElement = document.getElementById(employee.StaffID);
+        updateEmployeeAjax(employee);
+        setEmployeeInRow(rowElement,employee);
+       
+        clearForm();
+        showViewAll();
+    }
+    function doDelete(r){
+        var tableElement = document.getElementById('employeeTable');
+        var rowElement = r.parentNode.parentNode;
+        var index = rowElement.rowIndex;
+        deleteEmployeeAjax(rowElement.getAttribute("StaffID"));
+        tableElement.deleteRow(index);
+    }
+    function addEmployeeToTable(employee){
+        var tableElement = document.getElementById('employeeTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('StaffID',employee.StaffID)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = employee.StaffID
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = employee.Name
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = employee.Position
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = employee.Role
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = employee.DepartmentID
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell7 = rowElement.insertCell(6);
+        cell7.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+
+    }
+
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+
+        form.querySelector('input[name="Name"]').value=''
+        form.querySelector('input[name="Position"]').value=''
+        form.querySelector('input[name="Role"]').value=''
+        form.querySelector('input[name="DepartmentID"]').value=''
+    }
+    function getEmployeeFromRow(rowElement){
+        var employee ={}
+        employee.StaffID  = rowElement.getAttribute('StaffID')
+        employee.Name = rowElement.cells[1].firstChild.textContent
+        employee.Position = rowElement.cells[2].firstChild.textContent
+        employee.Role = rowElement.cells[3].firstChild.textContent
+        employee.DepartmentID = parseInt(rowElement.cells[4].firstChild.textContent,10)
+        return employee
+    }
+    function setEmployeeInRow(rowElement, employee){
+        rowElement.cells[0].firstChild.textContent= employee.StaffID 
+        rowElement.cells[1].firstChild.textContent= employee.Name
+        rowElement.cells[2].firstChild.textContent= employee.Position
+        rowElement.cells[3].firstChild.textContent= employee.Role
+        rowElement.cells[4].firstChild.textContent= employee.DepartmentID
+    }
+    function populateFormWithEmployee(employee){
+        var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="StaffID"]').disabled = true
+
+        form.querySelector('input[name="StaffID"]').value  = employee.StaffID
+        form.querySelector('input[name="Name"]').value  = employee.Name
+        form.querySelector('input[name="Position"]').value= employee.Position
+        form.querySelector('input[name="Role"]').value= employee.Role
+        form.querySelector('input[name="DepartmentID"]').value= employee.DepartmentID
+        return employee
+    }
+    function getEmployeeFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        var employee = {}
+        employee.StaffID = form.querySelector('input[name="StaffID"]').value
+        employee.Name = form.querySelector('input[name="Name"]').value
+        employee.Position = form.querySelector('input[name="Position"]').value
+        employee.Role = form.querySelector('input[name="Role"]').value
+        employee.DepartmentID = parseInt(form.querySelector('input[name="DepartmentID"]').value,10)
+        console.log(JSON.stringify(employee))
+        return employee
+    }
+    function getAllAjax(){
+        $.ajax({
+            "url": "/employees",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                //console.log(result);
+                for (employee of result){
+                    addEmployeeToTable(employee);
+                }
+                
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+
+    }
+    function createEmployeeAjax(employee){
+        //var employee = {"Name":"Test Tester","Position":"Snr Management","Role":"HR Specialist","DepartmentID":101}
+        console.log(JSON.stringify(employee));
+        $.ajax({
+            "url": "/employees",
+            "method":"POST",
+            "data":JSON.stringify(employee),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                //console.log(result);
+                employee.StaffID = result.StaffID
+                addEmployeeToTable(employee)
+                clearForm()
+                showViewAll()
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    function updateEmployeeAjax(employee){
+       
+        console.log(JSON.stringify(employee));
+        $.ajax({
+            "url": "/employees/"+encodeURI(employee.StaffID),
+            "method":"PUT",
+            "data":JSON.stringify(employee),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+               // console.log(result);
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    function deleteEmployeeAjax(StaffID){
+        
+        //console.log(JSON.stringify('deleting '+id));
+        $.ajax({
+            "url": "/employees/"+encodeURI(id),
+            "method":"DELETE",
+            "data":"",
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                //console.log(result);
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    getAllAjax();
+  
+
+    
     </script>
 </html>
