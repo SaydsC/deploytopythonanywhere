@@ -8,7 +8,7 @@ app=Flask(__name__, static_url_path='', static_folder='staticpages')
 
 @app.route('/')
 def index():
-    return "hello"
+    return "Hello, welcome to our HR landing page"
 
 #get all
 @app.route('/employees')
