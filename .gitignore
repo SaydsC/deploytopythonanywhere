@@ -81,8 +81,8 @@ target/
 # IPython
 profile_default/
 ipython_config.py
-config.py
-configpa.py
+#config.py
+#configpa.py
 
 
 # pyenv
