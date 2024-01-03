@@ -187,7 +187,7 @@
     }
     function getAllAjax(){
         $.ajax({
-            "url": "http://127.0.0.1:5000/employees",
+            "url": "/employees",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
@@ -208,7 +208,7 @@
         //var employee = {"Name":"Test Tester","Position":"Snr Management","Role":"HR Specialist","DepartmentID":101}
         console.log(JSON.stringify(employee));
         $.ajax({
-            "url": "http://127.0.0.1:5000/employees",
+            "url": "/employees",
             "method":"POST",
             "data":JSON.stringify(employee),
             "dataType": "JSON",
@@ -229,7 +229,7 @@
        
         console.log(JSON.stringify(employee));
         $.ajax({
-            "url": "http://127.0.0.1:5000/employees/"+encodeURI(employee.StaffID),
+            "url": "/employees/"+encodeURI(employee.StaffID),
             "method":"PUT",
             "data":JSON.stringify(employee),
             "dataType": "JSON",
@@ -247,7 +247,7 @@
         
         //console.log(JSON.stringify('deleting '+id));
         $.ajax({
-            "url": "http://127.0.0.1:5000/employees/"+encodeURI(id),
+            "url": "/employees/"+encodeURI(id),
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",
