@@ -1,14 +1,30 @@
 <html>
     <head>
-        <title>View Employees</title>
+        <title>HR Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link type="text/css" rel="stylesheet" href="css/style.css"
+
     </head>
     <body>
+
+        <div>
+            <header>
+
+                <div class="menu">
+                    <ul>
+                        <li><a class="active" href="HRinterface.html">HRPortal</a> </li>
+                        <li><a href="Homepage.html">Home</a></li>
+                    </ul>
+                </div>
+            </header>
+
+
+        </div>
         <h1>Employees</h1>
-        <div><button id="button-showCreate" onclick="showCreate()">Create a new Employee</button><br/><br/></div>
+        <div><button id="button-showCreate" onclick="showCreate()">Add a new Employee</button><br/><br/></div>
         <div>
             <table class="table" id="employeeTable">
                 <tr>
@@ -171,7 +187,7 @@
     }
     function getAllAjax(){
         $.ajax({
-            "url": "/employees",
+            "url": "http://127.0.0.1:5000/employees",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
@@ -192,7 +208,7 @@
         //var employee = {"Name":"Test Tester","Position":"Snr Management","Role":"HR Specialist","DepartmentID":101}
         console.log(JSON.stringify(employee));
         $.ajax({
-            "url": "/employees",
+            "url": "http://127.0.0.1:5000/employees",
             "method":"POST",
             "data":JSON.stringify(employee),
             "dataType": "JSON",
@@ -213,7 +229,7 @@
        
         console.log(JSON.stringify(employee));
         $.ajax({
-            "url": "/employees/"+encodeURI(employee.StaffID),
+            "url": "http://127.0.0.1:5000/employees/"+encodeURI(employee.StaffID),
             "method":"PUT",
             "data":JSON.stringify(employee),
             "dataType": "JSON",
@@ -231,7 +247,7 @@
         
         //console.log(JSON.stringify('deleting '+id));
         $.ajax({
-            "url": "/employees/"+encodeURI(id),
+            "url": "http://127.0.0.1:5000/employees/"+encodeURI(id),
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",

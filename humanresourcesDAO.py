@@ -12,15 +12,26 @@ class humanresourcesDAO:
 
     def __init__(self):
         self.host=       cfg.mysqldb['host']
-        self.user=       cfg.mysqldb['user']
+        self.user=       cfg.mysqldb['username']
         self.password=   cfg.mysqldb['password']
         self.database=   cfg.mysqldb['database']
-               
+
+    def employee(self, Employees):
+        print (Employees)
+        
+        values = [
+        Employees["StaffID"],
+        Employees["Name"],
+        Employees["Position"],
+        Employees["Role"],
+        Employees["DepartmentID"]
+
+    ]           
     
     def getcursor(self): 
         self.connection = mysql.connector.connect(
             host=       self.host,
-            user=       self.user,
+            username=       self.user,
             password=   self.password,
             database=   self.database,
         )
@@ -31,9 +42,11 @@ class humanresourcesDAO:
         self.connection.close()
         self.cursor.close()
     
+    values = []
+
     def create(self, values):
         cursor = self.getcursor()
-        sql="insert into Employees (Name, Position, Role, DepartmentID) values (%s,%s,%s,%s)"
+        sql="insert into Employees (Name, Position, Role, DepartmentID) VALUES (%s,%s,%s,%s)"
         cursor.execute(sql, values)
 
         self.connection.commit()
